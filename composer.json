@@ -1,0 +1,25 @@
+{
+  "name": "jdecool/image-workshop-bundle",
+  "type": "bundle",
+  "description": "Symfony2 bundle implementing for ImageWorkshop",
+  "keywords": ["symfony2", "image", "thumbnail", "watermark", "resize", "crop", "rotate", "library", "GD", "class"],
+  "homepage": "https://github.com/jdecool/ImageWorkshopBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jérémy DECOOL",
+      "email": "contact@jdecool.fr",
+      "homepage": "http://www.jdecool.fr/"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0",
+    "sybio/image-workshop": "~2.0.6"
+  },
+  "autoload": {
+    "psr-0": {
+      "JDecool\\Bundle\\ImageWorkshopBundle": ""
+    }
+  },
+  "target-dir": "JDecool/Bundle/ImageWorkshopBundle"
+}

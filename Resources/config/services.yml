@@ -1,0 +1,4 @@
+services:
+#    j_decool_image_workshop.example:
+#        class: JDecool\Bundle\ImageWorkshopBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
