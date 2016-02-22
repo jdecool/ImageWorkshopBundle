@@ -1,3 +1,13 @@
 services:
     image_workshop.factory:
         class: JDecool\Bundle\ImageWorkshopBundle\Factory\ImageLayerFactory
+
+    image_workshop.cache_resolver:
+        class: JDecool\Bundle\ImageWorkshopBundle\Services\CacheManager
+
+    image_workshop.twig_extension:
+        class: JDecool\Bundle\ImageWorkshopBundle\Twig\ImageWorkshopExtension
+        arguments:
+            - '@image_workshop.cache_resolver'
+        tags:
+            - { name: twig.extension }
