@@ -1,9 +1,23 @@
+parameters:
+    image_workshop.cache_prefix: 'media/cache'
+    image_workshop.web_root:     '%kernel.root_dir%/../web'
+
 services:
     image_workshop.factory:
         class: JDecool\Bundle\ImageWorkshopBundle\Factory\ImageLayerFactory
 
+    image_workshop.manager:
+        class: JDecool\Bundle\ImageWorkshopBundle\Services\ImageManager
+        arguments:
+            - '@image_workshop.factory'
+
     image_workshop.cache_resolver:
         class: JDecool\Bundle\ImageWorkshopBundle\Services\CacheManager
+        arguments:
+            - '@router.request_context'
+            - '@image_workshop.manager'
+            - '%image_workshop.web_root%'
+            - '%image_workshop.cache_prefix%'
 
     image_workshop.twig_extension:
         class: JDecool\Bundle\ImageWorkshopBundle\Twig\ImageWorkshopExtension
