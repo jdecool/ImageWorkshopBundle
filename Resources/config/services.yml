@@ -10,6 +10,7 @@ services:
         class: JDecool\Bundle\ImageWorkshopBundle\Services\ImageManager
         arguments:
             - '@image_workshop.factory'
+            - []
 
     image_workshop.cache_resolver:
         class: JDecool\Bundle\ImageWorkshopBundle\Services\CacheManager

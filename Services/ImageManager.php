@@ -9,15 +9,20 @@ class ImageManager
     /** @var ImageLayerFactory */
     private $factory;
 
+    /** @var array */
+    private $formats;
+
 
     /**
      * Constructor
      *
      * @param ImageLayerFactory $factory
+     * @param array             $formats
      */
-    public function __construct(ImageLayerFactory $factory)
+    public function __construct(ImageLayerFactory $factory, array $formats)
     {
         $this->factory = $factory;
+        $this->formats = $formats;
     }
 
     /**
@@ -34,11 +39,18 @@ class ImageManager
             return $file;
         }
 
+        if (!isset($this->formats[$filter])) {
+            throw new \RuntimeException(sprintf('"%s" format is not defined.', $filter));
+        }
+
+        $width  = $this->formats[$filter]['width'];
+        $height = $this->formats[$filter]['height'];
+
         $layer = $this->factory->initFromPath($file, true);
-        if ($layer->getWidth() / 200 > $layer->getHeight() / 300) {
-            $layer->resizeInPixel(200, null, true);
+        if ($layer->getWidth() / $width > $layer->getHeight() / $height) {
+            $layer->resizeInPixel($width, null, true);
         } else {
-            $layer->resizeInPixel(null, 300, true);
+            $layer->resizeInPixel(null, $height, true);
         }
 
         $filename = basename($file);
