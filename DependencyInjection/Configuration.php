@@ -17,6 +17,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('cache_prefix')->defaultNull()->end()
                 ->arrayNode('formats')
                     ->prototype('array')
                         ->treatNullLike([])
