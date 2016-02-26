@@ -65,6 +65,21 @@ class CacheManager
     }
 
     /**
+     * Get cache directory
+     *
+     * @return string
+     */
+    public function getCacheDirectory()
+    {
+        $path = sprintf('%s/%s',
+            rtrim($this->webRoot, '/'),
+            ltrim($this->cachePrefix, '/')
+        );
+
+        return realpath($path);
+    }
+
+    /**
      * Get cached image file path
      *
      * @param string $file
