@@ -25,9 +25,8 @@ class ImageWorkshopExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        if (!empty($config['cache_prefix'])) {
-            $container->setParameter('image_workshop.cache_prefix', $config['cache_prefix']);
-        }
+        $container->setParameter('image_workshop.cache_lifetime', $config['cache']['lifetime']);
+        $container->setParameter('image_workshop.cache_prefix', $config['cache']['prefix']);
 
         if ($container->has('image_workshop.manager')) {
             $imageManagerDefinition = $container->getDefinition('image_workshop.manager');

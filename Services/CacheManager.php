@@ -18,6 +18,9 @@ class CacheManager
     /** @var string */
     private $cachePrefix;
 
+    /** @var int */
+    private $cacheLifetime;
+
 
     /**
      * Constructor
@@ -26,13 +29,15 @@ class CacheManager
      * @param ImageManager   $imageManager
      * @param string         $webRoot
      * @param string         $cachePrefix
+     * @param int            $cacheLifetime
      */
-    public function __construct(RequestContext $requestContext, ImageManager $imageManager, $webRoot, $cachePrefix)
+    public function __construct(RequestContext $requestContext, ImageManager $imageManager, $webRoot, $cachePrefix, $cacheLifetime)
     {
         $this->requestContext = $requestContext;
         $this->imageManager   = $imageManager;
         $this->webRoot        = $webRoot;
         $this->cachePrefix    = $cachePrefix;
+        $this->cacheLifetime  = $cacheLifetime;
     }
 
     /**
@@ -45,7 +50,7 @@ class CacheManager
     public function getPath($file, $filter)
     {
         $cachedFile = $this->getFilePath($file, $filter);
-        if (is_file($cachedFile)) {
+        if (is_file($cachedFile) && !$this->isCacheExpired($cachedFile)) {
             return $this->getUrlPath($file, $filter);
         }
 
@@ -131,5 +136,20 @@ class CacheManager
             $port,
             $baseUrl
         );
+    }
+
+    /**
+     * Check if cache is expired
+     *
+     * @param string $file
+     * @return bool
+     */
+    private function isCacheExpired($file)
+    {
+        if (false === ($lastChange = filemtime($file))) {
+            return true;
+        }
+
+        return ($lastChange + $this->cacheLifetime) < time();
     }
 }

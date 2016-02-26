@@ -17,7 +17,13 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('cache_prefix')->defaultNull()->end()
+                ->arrayNode('cache')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('prefix')->defaultValue('media/cache')->end()
+                        ->scalarNode('lifetime')->defaultValue(86400)->end()
+                    ->end()
+                ->end()
                 ->arrayNode('formats')
                     ->prototype('array')
                         ->treatNullLike([])

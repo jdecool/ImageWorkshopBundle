@@ -1,6 +1,5 @@
 parameters:
-    image_workshop.cache_prefix: 'media/cache'
-    image_workshop.web_root:     '%kernel.root_dir%/../web'
+    image_workshop.web_root: '%kernel.root_dir%/../web'
 
 services:
     image_workshop.factory:
@@ -19,6 +18,7 @@ services:
             - '@image_workshop.manager'
             - '%image_workshop.web_root%'
             - '%image_workshop.cache_prefix%'
+            - '%image_workshop.cache_lifetime%'
 
     image_workshop.twig_extension:
         class: JDecool\Bundle\ImageWorkshopBundle\Twig\ImageWorkshopExtension
