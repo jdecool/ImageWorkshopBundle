@@ -92,6 +92,10 @@ class CacheManager
      */
     protected function getBasePath($file, $filter)
     {
+        if ('original' === $filter) {
+            return $file;
+        }
+
         $file = str_replace('://', '---', $file);
 
         return sprintf('%s/%s/%s',
