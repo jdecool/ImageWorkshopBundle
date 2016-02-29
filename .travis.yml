@@ -11,11 +11,8 @@ env:
   - SYMFONY_VERSION=2.6.*
   - SYMFONY_VERSION=2.5.*
 
-matrix:
-  allow_failures:
-    - php: 7.0
-
 before_script:
+  - phpenv config-rm xdebug.ini
   - composer selfupdate
   - composer require symfony/symfony:${SYMFONY_VERSION} --no-update
   - composer update
